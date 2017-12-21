@@ -1,15 +1,15 @@
 #!/usr/bin/env python
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
-    name='dscovered',
+    name='discovered',
     version='0.0.1',
     url='http://github.com/peterfraedrich/discovered',
     license='MIT',
     author='Peter Fraedrich',
     author_email='peter.fraedrich@hexapp.net',
     description='Redis-based service discovery for python',
-    packages=['discovered'],
+    packages=find_packages(exclude=('test.py')),
     platforms='any',
     install_requires=[
         'redis',
