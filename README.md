@@ -7,6 +7,13 @@ Because there's no real lightweight service discovery mechanisms for Python that
 ### How does it work?
 DiscoveRed uses Redis as a k/v store to hold service information
 
+#### The TTL feature
+Unlike most service discovery methods, `DiscoveRed` doesn't require clients to re-register every n-seconds. This functionality can be enabled, though, through the use of the `ttl` option when instantiating the class. By setting the ttl to a positive integer, the keys that hold node information can be deprecated after n-seconds. This is useful if you are doing any kind of load balancing or monitoring off of the discovery information, or if you just want to replicate classic behavior. 
+
+#### The AUTO feature
+If you're anything like me you enjoy having more information than you probably need at any given time. I've implemented a feature that uses `psutil` and the `platform` library to auto-discover information about nodes as they register. This feature is automatically enabled, but can be overridden by the `auto` flag when instantiating the `ServiceDiscovery` class, or by overriding the `auto` parameter on calls to `register_node()` and setting `node=False`. This is useful in conjunction with the TTL feature to avoid unnecessary probing (and therefore call time) when making subsequent "check in" node registrations.
+
+
 ## API
 ```python
 
@@ -16,7 +23,7 @@ discovered.ServiceDiscovery(redis_host, redis_port, redis_db, redis_auth, ttl, a
     redis_port (default: 6379) : redis port
     redis_db (default: 0) : redis db index for the service discovery information
     redis_auth (default: None) : redis auth string if required
-    ttl (default: -1) : set a TTL on nodes, requiring them to re-register to stay enabled
+    ttl (default: -1) : set a TTL (seconds) on nodes, requiring them to re-register to stay enabled
     auto (default: True) : auto-discover node details on registration
 
     Instantiates a new connection to the Redis service discovery keys.
