@@ -12,7 +12,8 @@ setup(
     packages=['discovered'],
     platforms='any',
     install_requires=[
-        'redis'
+        'redis',
+        'psutil'
     ],
     keywords=[
         'Redis',
