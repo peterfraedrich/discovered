@@ -127,3 +127,4 @@ discovered.ServiceDiscovery(redis_host, redis_port, redis_db, redis_auth, ttl, a
 
 #### TODO
 * Redis Sentinel integration
+* Submit to PyPi
